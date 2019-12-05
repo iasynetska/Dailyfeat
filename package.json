@@ -8,7 +8,7 @@
     "dev": "webpack --mode development",
     "build": "webpack --mode production",
     "init": "npm install && webpack --mode development",
-    "live": "webpack-dev-server --inline --hot --mode development"
+    "live": "webpack-dev-server --inline --hot --mode development --open"
   },
   "repository": {
     "type": "git",
