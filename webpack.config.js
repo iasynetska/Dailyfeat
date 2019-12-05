@@ -31,6 +31,10 @@ module.exports = {
     watch: false,
     mode: "development",
     devtool: "source-map",
+    devServer: {
+        publicPath: '/dist/',
+        watchContentBase: true
+    },
     module: {
         rules: [
             {
