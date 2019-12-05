@@ -20,6 +20,7 @@ function recursiveIssuer(m) {
 
 module.exports = {
     entry: {
+        server: "./server/app.js",
         pageOne: "./src/pageOne/app.js",
         pageTwo: "./src/pageTwo/app.js"
     },
