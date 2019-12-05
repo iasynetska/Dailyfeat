@@ -70,7 +70,7 @@ module.exports = {
             filename: 'pageTwo/index.html'
         }),
         new MiniCssExtractPlugin({
-            filename: '[name].css'
+            filename: 'styles/[name].css'
         }),
         new PurgecssPlugin({
             paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
