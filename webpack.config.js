@@ -16,7 +16,7 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: "[name]/bundle.js",
+        filename: "js/[name].js",
     },
     watch: false,
     mode: "development",
@@ -61,13 +61,13 @@ module.exports = {
             template: "src/pageOne/index.html",
             inject: true,
             chunks: ['pageOne'],
-            filename: 'pageOne/index.html'
+            filename: 'pageOne.html'
         }),
         new HtmlWebpackPlugin({
             template: "src/pageTwo/index.html",
             inject: true,
             chunks: ['pageTwo'],
-            filename: 'pageTwo/index.html'
+            filename: 'pageTwo.html'
         }),
         new MiniCssExtractPlugin({
             filename: 'styles/[name].css'
