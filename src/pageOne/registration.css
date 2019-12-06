@@ -64,8 +64,20 @@
     margin-top: 2em;
 }
 
-.social img {
-    width: 56px;
+.social svg {
+    transform: scale(0.7);
+}
+
+#googleCircle, #facebookCircle, #google, #facebook, #svg_5 {
+    transition: .5s;
+}
+
+.social svg:hover #googleCircle, .social svg:hover #facebookCircle {
+    fill: #ffffff;
+}
+
+.social svg:hover #google, .social svg:hover #facebook, .social svg:hover #svg_5 {
+    fill: var(--selectColor);
 }
 
 @media screen and (min-width: 1201px) {
