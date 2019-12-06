@@ -12,10 +12,20 @@
 
 body {
     background: transparent linear-gradient(155deg, #20C8C8 0%, #611D95 100%) 0% 0% no-repeat padding-box;
+    overflow-y:hidden;
 }
 
 ::placeholder {
     color: #DBE2F8;
     font-size: 1rem;
     text-align: center;
+}
+
+input {
+    transition: 0.5s;
+    outline: none;
+}
+
+input:focus {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.329);
 }

@@ -22,7 +22,6 @@
     background: none;
     border-radius: 1.2em;
     padding: 0.7em 1em;
-    outline: none;
     text-align: center;
     color: #DBE2F8;
     font-size: 1rem;
@@ -37,7 +36,6 @@
     letter-spacing: 0.32px;
     color: var(--selectColor);
     cursor: pointer;
-    outline: none;
     font-size: 1rem;
     transition: .5s background, .3s border, .3s color;
 }
