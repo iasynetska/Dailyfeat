@@ -1,0 +1,16 @@
+/* .emailOptin {
+    display: none;
+    height: 100vh;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+.extinction {
+    animation: nextSection 1s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@keyframes nextSection {
+    0% {opacity:1; margin-left:0}
+    100% {opacity:0;margin-left:-1500px}
+} */
