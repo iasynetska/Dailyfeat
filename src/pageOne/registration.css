@@ -57,8 +57,8 @@
 }
 
 .social {
-    display: flex;
-    justify-content: space-around;
+    /* display: flex;
+    justify-content: space-around; */
     margin-top: 2em;
 }
 
