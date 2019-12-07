@@ -8,11 +8,13 @@
 </head>
 <body>
 
+    <!-- First Reg Page -->
+
     <div class="registration">
         <div class="logo"><img src="./images/daily-feat-logo.svg" alt=""></div>
         <form action="" autocomplete="off">
-            <input type="email" name="email" id="inputEmail" placeholder="enter email... ">
-            <input type="button" value="create an account" id="nextButton">
+            <input type="email" class="input" name="email" id="inputEmail" placeholder="enter email... ">
+            <input type="button" class="input" value="create an account" id="nextButton">
         </form>
         <div class="socialRegistration">
             <p>or register with an existing account</p>
@@ -48,9 +50,30 @@
         </div>
     </div>
 
+    <!-- ?Email opt-in -->
+
     <div class="emailOptin">
         <h1>Email opt-in?</h1>
-        <input type="button" value=">">
+        <input type="button" value=">" class="nextCircle">
+    </div>
+
+    <!-- Second Reg Page -->
+
+    <div class="registrationContinue">
+        
+        <!-- Hello There -->
+        
+        <div class="logo"><img src="./images/daily-feat-logo.svg" alt=""></div>
+        <div class="hello"><h1>Hello There</h1></div>
+        <div class="nextDiv"><input type="button" value=">" class="nextCircle"></div>
+
+        <!-- Name and password -->
+
+        <form action="" autocomplete="off">
+            <input type="text" class="input" name="name" id="name" placeholder="what would you like to be called?">
+            <input type="password" class="input" name="password" id="password" placeholder="enter your password...">
+        </form>
+
     </div>
 
     

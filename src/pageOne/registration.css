@@ -1,4 +1,6 @@
-.registration {
+/*--------First-Reg-Page---------*/
+
+.registration, .registrationContinue {
     height: 100vh;
     display: flex;
     align-items: center;
@@ -17,7 +19,7 @@
     width: 35%;
 }
 
-.registration form input[type="email"] {
+.input {
     border: 1.5px solid #F9F9F9;
     background: none;
     border-radius: 1.2em;
@@ -46,19 +48,12 @@
     background: var(--selectColor);
 }
 
-.registration input:focus::placeholder {
-    opacity: 0; 
-    transition: opacity 0.3s ease;
-}
-
 .socialRegistration p {
     color: #fff;
     font-size: 0.8rem;       
 }
 
 .social {
-    /* display: flex;
-    justify-content: space-around; */
     margin-top: 2em;
 }
 
@@ -77,6 +72,22 @@
 .social svg:hover #google, .social svg:hover #facebook, .social svg:hover #svg_5 {
     fill: var(--selectColor);
 }
+
+/*--------Second-Reg-Page---------*/
+
+.registrationContinue {
+    display: none;
+    color: #fff;
+    justify-content: space-evenly;
+}
+
+.registrationContinue form {
+    display: none;
+    flex-direction: column;
+    width: 70%;
+}
+
+/*--------RWD--------*/
 
 @media screen and (min-width: 1201px) {
     .logo {
