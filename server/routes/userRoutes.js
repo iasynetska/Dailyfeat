@@ -1,4 +1,4 @@
-const {User, validate} = require('../models/user');
+const {User, validate} = require('../models/userModel');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
@@ -16,7 +16,7 @@ router.post('/', async (req, res) => {
 		password: req.body.password
 	});
 
-	await user.save();
+	await user.save().catch(error => console.log(error));
 
 	res.send(user);
 });
