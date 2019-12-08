@@ -13,5 +13,5 @@ app.use('/api/users', users);
 
 mongo.connect();
 
-const port = config.get("server.port");
+const port = process.env.PORT || config.get("server.port");
 app.listen(port, () => console.log(`Server listening on port ${port}...`));
