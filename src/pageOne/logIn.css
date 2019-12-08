@@ -1,0 +1,52 @@
+.extinction {
+    animation: nextSection 1s ease-in-out;
+}
+
+.extinctionOpacity {
+    animation: nextSectionOpacity 1s ease-in-out;
+    display: flex !important;
+}
+
+@keyframes nextSectionOpacity {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+@keyframes nextSection {
+    0% {opacity:1; margin-top:0}
+    100% {opacity:0;margin-top:-100vh}
+}
+
+.logIn {
+    height: 100vh;
+    background: #fff;
+    color: var(--selectColor);
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.logIn h1 {
+    margin-bottom: 3em;
+}
+
+.logIn form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logIn .input {
+    border: 1.5px solid var(--selectColor);
+    margin-bottom: 5em;
+    color: var(--selectColor);
+}
+
+.logIn .input:focus {
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.178) !important;
+}
+
+.logIn .input::placeholder {
+    color: var(--selectColor);
+}

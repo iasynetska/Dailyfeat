@@ -30,7 +30,7 @@
     margin-bottom: 1em;
 }
 
-.registration form input[type="button"] {
+.registration form input[type="submit"] {
     border: 1.5px solid #fff;
     background: #fff;
     border-radius: 1.2em;
@@ -42,7 +42,7 @@
     transition: .5s background, .3s border, .3s color;
 }
 
-.registration form input[type="button"]:hover {
+.registration form input[type="submit"]:hover {
     color: #fff;
     border: 1.5px solid var(--selectColor);
     background: var(--selectColor);
@@ -84,7 +84,13 @@
 .registrationContinue form {
     display: none;
     flex-direction: column;
-    width: 70%;
+    width: 45%;
+    margin-top: -5em;
+}
+
+.registrationContinue form input[type="submit"] {
+    margin: auto;
+    margin-top: 2em;
 }
 
 /*--------RWD--------*/
@@ -105,7 +111,7 @@
     .registration form input[type="email"] {
         padding: 0.8em 1em;
     }
-    .registration form input[type="button"] {
+    .registration form input[type="submit"] {
         padding: 0.8em 1em;
     }
 }
@@ -120,8 +126,11 @@
     .registration form input[type="email"] {
         padding: 0.8em 1em;
     }
-    .registration form input[type="button"] {
+    .registration form input[type="submit"] {
         padding: 0.8em 1em;
+    }
+    .registrationContinue form {
+        width: 70%;
     }
 }
 
@@ -133,12 +142,15 @@
         padding: 0.75em 1em;
         font-size: 1rem;
     }
-    .registration form input[type="button"] {
+    .registration form input[type="submit"] {
         padding: 0.75em 1em;
         font-size: 1rem;
     }
     input::placeholder {
         font-size: 1rem;
+    }
+    .registrationContinue form {
+        width: 70%;
     }
 }
 
@@ -154,12 +166,15 @@
         font-size: 0.9rem;
         margin-bottom: 1em;
     }
-    .registration form input[type="button"] {
+    .registration form input[type="submit"] {
         padding: 0.75em 1em;
         letter-spacing: 0.32px;
         font-size: 0.9rem;
     }
     input::placeholder {
         font-size: 0.9rem;
+    }
+    .registrationContinue form {
+        width: 80%;
     }
 }
