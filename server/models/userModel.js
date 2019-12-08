@@ -1,14 +1,6 @@
 const Joi = require('joi');
 const mongoose = require('mongoose');
 
-const url = 'mongodb+srv://root:b6znvGDP3sBp1YcH@clusterproject4-j6fjt.gcp.mongodb.net/dailyfeat?retryWrites=true&w=majority';
-mongoose.connect(url, {useNewUrlParser: true});
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("Connected to MongoDb");
-});
-
 const User = mongoose.model('User', new mongoose.Schema({
 	login: {
 		type: String,

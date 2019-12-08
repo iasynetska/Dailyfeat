@@ -1,0 +1,11 @@
+{
+	"server": {
+		"port": 3000
+	},
+	"mongo": {
+		"user": "root",
+		"password": "b6znvGDP3sBp1YcH",
+		"server": "clusterproject4-j6fjt.gcp.mongodb.net",
+		"collection": "dailyfeat"
+	}
+}
