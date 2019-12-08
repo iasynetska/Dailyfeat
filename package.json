@@ -9,7 +9,7 @@
     "build": "webpack --mode production",
     "init": "npm install && webpack --mode development",
     "live": "webpack --mode development && webpack-dev-server --inline --hot --mode development",
-    "start": "node server/app.js"
+    "start": "node ./server/app.js"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.7.4",
-    "bcrypt": "^3.0.7",
+    "bcryptjs": "^2.4.3",
     "config": "^3.2.4",
     "express": "^4.17.1",
     "joi": "^14.3.1",

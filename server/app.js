@@ -1,7 +1,7 @@
 // point 'config' module to configuration folder
 process.env["NODE_CONFIG_DIR"] = __dirname + "/config/";
 
-const config = require("config");
+const config = require('config');
 const users = require('./routes/userRoutes');
 const express = require('express');
 const app = express();

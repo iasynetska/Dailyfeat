@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 const {User, validate} = require('../models/userModel');
 const mongoose = require('mongoose');
