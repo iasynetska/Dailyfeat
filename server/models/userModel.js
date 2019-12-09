@@ -24,19 +24,19 @@ const User = mongoose.model('User', new mongoose.Schema({
 	}
 }));
 
-const validationSchema = {
+const validationEmailSchema = {
+	email: Joi.string().min(5).max(255).required().email()
+};
+
+const validationUserSchema = {
 	login: Joi.string().min(3).max(25).required(),
 	email: Joi.string().min(5).max(255).required().email(),
 	password: Joi.string().min(5).max(1024).required()
 };
 
 function validate(user) {
-	return Joi.validate(user, validationSchema);
+	return Joi.validate(user, validationUserSchema);
 }
-
-const validationEmailSchema = {
-	email: Joi.string().min(5).max(255).required().email()
-};
 
 function validateEmail(email) {
 	return Joi.validate(email, validationEmailSchema);
