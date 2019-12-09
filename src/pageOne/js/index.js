@@ -38,7 +38,7 @@ function checkEmail(e) {
     })
         .then(res => {
             console.log(res);
-            res.json();
+            return res.json();
         })
         .then(data => console.log(data))
 
