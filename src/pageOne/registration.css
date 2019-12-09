@@ -1,0 +1,179 @@
+/*--------First-Reg-Page---------*/
+
+.registration, .registrationContinue {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    font-size: 16px;
+}
+
+.logo img {
+    width: 100%;
+}
+
+.registration form {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+}
+
+.input {
+    border: 1.5px solid #F9F9F9;
+    background: none;
+    border-radius: 1.2em;
+    padding: 0.7em 1em;
+    text-align: center;
+    color: #DBE2F8;
+    font-size: 1rem;
+    margin-bottom: 1em;
+}
+
+.registration form input[type="submit"] {
+    border: 1.5px solid #fff;
+    background: #fff;
+    border-radius: 1.2em;
+    padding: 0.7em 1em;
+    letter-spacing: 0.32px;
+    color: var(--selectColor);
+    cursor: pointer;
+    font-size: 1rem;
+    transition: .5s background, .3s border, .3s color;
+}
+
+.registration form input[type="submit"]:hover {
+    color: #fff;
+    border: 1.5px solid var(--selectColor);
+    background: var(--selectColor);
+}
+
+.socialRegistration p {
+    color: #fff;
+    font-size: 0.8rem;       
+}
+
+.social {
+    margin-top: 2em;
+}
+
+.social svg {
+    transform: scale(0.7);
+}
+
+#googleCircle, #facebookCircle, #google, #facebook, #svg_5 {
+    transition: .5s;
+}
+
+.social svg:hover #googleCircle, .social svg:hover #facebookCircle {
+    fill: #ffffff;
+}
+
+.social svg:hover #google, .social svg:hover #facebook, .social svg:hover #svg_5 {
+    fill: var(--selectColor);
+}
+
+/*--------Second-Reg-Page---------*/
+
+.registrationContinue {
+    display: none;
+    color: #fff;
+    justify-content: space-evenly;
+}
+
+.registrationContinue form {
+    display: none;
+    flex-direction: column;
+    width: 45%;
+}
+
+.registrationContinue form input[type="submit"] {
+    margin: auto;
+    margin-top: 2em;
+}
+
+/*--------RWD--------*/
+
+@media screen and (min-width: 1201px) {
+    .logo {
+        width: 15%;
+    }
+}
+
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+    .logo {
+        width: 20%;
+    }
+    .registration form {
+        width: 45%;
+    }
+    .registration form input[type="email"] {
+        padding: 0.8em 1em;
+    }
+    .registration form input[type="submit"] {
+        padding: 0.8em 1em;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 900px) {
+    .logo {
+        width: 25%;
+    }
+    .registration form {
+        width: 60%;
+    }
+    .registration form input[type="email"] {
+        padding: 0.8em 1em;
+    }
+    .registration form input[type="submit"] {
+        padding: 0.8em 1em;
+    }
+    .registrationContinue form {
+        width: 70%;
+    }
+}
+
+@media screen and (min-width: 415px) and (max-width: 600px) {
+    .registration form {
+        width: 70%;
+    }
+    .registration form input[type="email"] {
+        padding: 0.75em 1em;
+        font-size: 1rem;
+    }
+    .registration form input[type="submit"] {
+        padding: 0.75em 1em;
+        font-size: 1rem;
+    }
+    input::placeholder {
+        font-size: 1rem;
+    }
+    .registrationContinue form {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .logo img {
+        width: 100%;
+    }
+    .registration form {
+        width: 80%;
+    }
+    .registration form input[type="email"] {
+        padding: 0.75em 1em;
+        font-size: 0.9rem;
+        margin-bottom: 1em;
+    }
+    .registration form input[type="submit"] {
+        padding: 0.75em 1em;
+        letter-spacing: 0.32px;
+        font-size: 0.9rem;
+    }
+    input::placeholder {
+        font-size: 0.9rem;
+    }
+    .registrationContinue form {
+        width: 80%;
+    }
+}
