@@ -9,7 +9,10 @@ const connect = function(){
 	const collection = config.get("mongo.collection");
 
 	const url = 'mongodb+srv://'+user+':'+password+'@'+server+'/'+collection+'?retryWrites=true&w=majority';
-	mongoose.connect(url, {useNewUrlParser: true});
+	mongoose.connect(url, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+	});
 	var db = mongoose.connection;
 	db.on('error', console.error.bind(console, 'connection error:'));
 	db.once('open', function() {
