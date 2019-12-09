@@ -5,8 +5,6 @@ const config = require('config');
 const bodyParser = require('body-parser');
 const mongo = require('./services/mongo.js');
 
-const addAccessControl = require('./middleware/accessControlAllowOrgin')
-
 const users = require('./routes/userRoutes');
 const emails = require('./routes/emailRoutes');
 const test = require('./routes/testRoutes');
@@ -14,8 +12,6 @@ const auth = require('./routes/authRoutes.js');
 
 const express = require('express');
 const app = express();
-
-// app.use(addAccessControl);
 
 app.use(bodyParser.json());
 app.use('/api/users', users);
