@@ -24,10 +24,6 @@ const User = mongoose.model('User', new mongoose.Schema({
 	}
 }));
 
-const validationEmailSchema = {
-	email: Joi.string().min(5).max(255).required().email()
-};
-
 const validationUserSchema = {
 	login: Joi.string().min(3).max(25).required(),
 	email: Joi.string().min(5).max(255).required().email(),
@@ -37,6 +33,10 @@ const validationUserSchema = {
 function validate(user) {
 	return Joi.validate(user, validationUserSchema);
 }
+
+const validationEmailSchema = {
+	email: validationUserSchema.email
+};
 
 function validateEmail(email) {
 	return Joi.validate(email, validationEmailSchema);
