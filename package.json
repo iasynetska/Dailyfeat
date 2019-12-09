@@ -9,7 +9,8 @@
     "build": "webpack --mode production",
     "init": "npm install && webpack --mode development",
     "live": "webpack --mode development && webpack-dev-server --inline --hot --mode development",
-    "start": "node ./server/app.js"
+    "start": "node ./server/app.js",
+    "server": "nodemon ./server/app.js"
   },
   "repository": {
     "type": "git",
