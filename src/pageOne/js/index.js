@@ -54,7 +54,7 @@ async function registrateUser(e) {
     const form = new FormData(e.target)
     form.forEach((value, key) => obj[key] = value);
     
-    await fetch("http://localhost:3000/api/users", {
+    await fetch("https://dailyfeat.herokuapp.com/api/users", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
