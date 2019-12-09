@@ -1,4 +1,5 @@
 const bcrypt = require('bcryptjs');
+const config = require('config');
 const _ = require('lodash');
 const {User, validate} = require('../models/userModel');
 const mongoose = require('mongoose');
@@ -25,7 +26,7 @@ router.post('/', async (req, res) => {
 
 	// create new user
 	user = new User(_.pick(req.body, ['login', 'email', 'password']));
-	const salt = await bcrypt.genSalt(10);
+	const salt = await bcrypt.genSalt(config.get("bcrypt.salt"));
 	user.password = await bcrypt.hash(user.password, salt);
 	await user.save().catch(error => {
 		return res.status(500).send({error: {server: error}});
