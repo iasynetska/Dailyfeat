@@ -6,8 +6,6 @@ const bodyParser = require('body-parser');
 const mongo = require('./services/mongo.js');
 const corsHeaders = require('./services/corsHeaders.js');
 
-const addAccessControl = require('./middleware/accessControlAllowOrgin')
-
 const users = require('./routes/userRoutes');
 const emails = require('./routes/emailRoutes');
 const test = require('./routes/testRoutes');
