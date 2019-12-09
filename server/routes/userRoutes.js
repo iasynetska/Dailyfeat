@@ -32,7 +32,8 @@ router.post('/', async (req, res) => {
 		return res.status(500).send({error: {server: error}});
 	});
 
-	res.send(_.pick(user, ['login', 'email']));
+	const token = user.generateAuthToken();
+	res.header('x-auth-token', token).send(_.pick(user, ['login', 'email']));
 });
 
 module.exports = router;

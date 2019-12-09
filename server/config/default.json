@@ -10,5 +10,6 @@
 	},
 	"bcrypt" : {
 		"salt": 10
-	}
+	},
+	"jwtPrivateKey": "jwtPrivateKey"
 }

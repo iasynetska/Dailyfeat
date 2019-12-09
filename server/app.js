@@ -6,6 +6,7 @@ const config = require('config');
 const users = require('./routes/userRoutes');
 const emails = require('./routes/emailRoutes');
 const test = require('./routes/testRoutes');
+const auth = require('./routes/authRoutes.js');
 
 const express = require('express');
 const app = express();
@@ -16,6 +17,7 @@ app.use(bodyParser.json());
 app.use('/api/users', users);
 app.use('/api/emails', emails);
 app.use('/api/test', test);
+app.use('/api/auth', auth);
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
