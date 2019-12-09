@@ -11,7 +11,7 @@ async function checkEmail(e) {
     const form = new FormData(e.target)
     form.forEach((value, key) => email[key] = value);
 
-    await fetch("http://localhost:3000/api/test", {
+    await fetch("https://dailyfeat.herokuapp.com/api/emails", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
