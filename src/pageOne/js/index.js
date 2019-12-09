@@ -34,7 +34,7 @@ function personalInfo() {
     registrationContunie.querySelector('form').addEventListener('submit', registrateUser);
 }
 
-function registrateUser(e) {
+async function registrateUser(e) {
     e.preventDefault();
     const obj = Object.assign({}, email);
     const form = new FormData(e.target)
@@ -43,21 +43,23 @@ function registrateUser(e) {
     let request = new Request(e.target.action, {
         method: 'POST',
         body: JSON.stringify(obj),
+        mode: 'no-cors', 
         headers: {
             'Content-Type': 'application/json',
-        },
+        }
     });
     
-    // fetch(request)
-    //     .then(res => {
-    //         if (!res) {
-    //             ...
-    //         }
-    //     }
-    // );
+    await fetch(request)
+        .then(res => {
+            console.log(res)
+        })
+        .catch(err => {
+            console.log(err)
+        }
+    );
 
     if (true) {
-        console.log(obj);
+        console.log(JSON.stringify(obj));
     }
 } 
 

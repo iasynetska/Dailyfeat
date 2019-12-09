@@ -85,7 +85,6 @@
     display: none;
     flex-direction: column;
     width: 45%;
-    margin-top: -5em;
 }
 
 .registrationContinue form input[type="submit"] {
