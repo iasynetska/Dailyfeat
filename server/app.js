@@ -13,16 +13,17 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongo = require('./services/mongo.js');
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('asd', '12')
+  next();
+});
+
 app.use(bodyParser.json());
 app.use('/api/users', users);
 app.use('/api/emails', emails);
 app.use('/api/test', test);
 app.use('/api/auth', auth);
-
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
-  next();
-});
 
 mongo.connect();
 
