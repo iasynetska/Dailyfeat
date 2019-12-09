@@ -34,5 +34,14 @@ function validate(user) {
 	return Joi.validate(user, validationSchema);
 }
 
+const validationEmailSchema = {
+	email: Joi.string().min(5).max(255).required().email()
+};
+
+function validateEmail(email) {
+	return Joi.validate(email, validationEmailSchema);
+}
+
 exports.User = User;
 exports.validate = validate;
+exports.validateEmail = validateEmail;
