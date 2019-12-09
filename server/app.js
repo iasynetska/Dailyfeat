@@ -17,6 +17,11 @@ app.use('/api/users', users);
 app.use('/api/emails', emails);
 app.use('/api/test', test);
 
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  next();
+});
+
 mongo.connect();
 
 const port = process.env.PORT || config.get("server.port");
