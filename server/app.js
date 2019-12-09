@@ -5,6 +5,7 @@ const config = require('config');
 
 const users = require('./routes/userRoutes');
 const emails = require('./routes/emailRoutes');
+const test = require('./routes/testRoutes');
 
 const express = require('express');
 const app = express();
@@ -14,6 +15,7 @@ const mongo = require('./services/mongo.js');
 app.use(bodyParser.json());
 app.use('/api/users', users);
 app.use('/api/emails', emails);
+app.use('/api/test', test);
 
 mongo.connect();
 
