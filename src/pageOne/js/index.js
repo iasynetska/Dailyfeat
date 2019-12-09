@@ -7,17 +7,47 @@ const email = {};
 // Check email on DB
 function checkEmail(e) {
     e.preventDefault();
+
     const form = new FormData(e.target)
     form.forEach((value, key) => email[key] = value);
-    // await fetch('', email)
-    //     .then((res) => {
-            
+
+    // const myRequest = new Request(e.target.action, {
+    //     method: 'POST',
+    //     mode: 'no-cors',
+    //     headers: {
+    //         'Content-Type': 'application/json; charset=UTF-8',
+    //     },
+    //     body: JSON.stringify(email),
+    // });
+    // console.log(myRequest);
+    // await fetch(myRequest)
+    //     .then(res => {
+    //         console.log(res);
     //     })
-    //     .catch()
+    //     .catch(err => {
+    //         console.log(err)
+    //     }
+    // );
+
+    fetch("http://localhost:3000/api/test", {
+        method: "POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(email)
+    })
+        .then(res => {
+            console.log(res);
+            res.json();
+        })
+        .then(data => console.log(data))
+
     if (true) {
         nextStep(registration, registrationContunie);
         personalInfo();
     }
+
+    
 }
 
 formEmail.addEventListener('submit', checkEmail);
