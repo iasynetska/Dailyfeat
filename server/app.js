@@ -15,7 +15,6 @@ const mongo = require('./services/mongo.js');
 
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
-  res.header('asd', '12')
   next();
 });
 
