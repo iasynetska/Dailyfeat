@@ -5,31 +5,13 @@ const registrationContunie = document.querySelector('.registrationContinue');
 const email = {};
 
 // Check email on DB
-function checkEmail(e) {
+async function checkEmail(e) {
     e.preventDefault();
 
     const form = new FormData(e.target)
     form.forEach((value, key) => email[key] = value);
 
-    // const myRequest = new Request(e.target.action, {
-    //     method: 'POST',
-    //     mode: 'no-cors',
-    //     headers: {
-    //         'Content-Type': 'application/json; charset=UTF-8',
-    //     },
-    //     body: JSON.stringify(email),
-    // });
-    // console.log(myRequest);
-    // await fetch(myRequest)
-    //     .then(res => {
-    //         console.log(res);
-    //     })
-    //     .catch(err => {
-    //         console.log(err)
-    //     }
-    // );
-
-    fetch("http://localhost:3000/api/test", {
+    await fetch("http://localhost:3000/api/test", {
         method: "POST",
         headers: {
             "Content-type": "application/json"
@@ -37,23 +19,25 @@ function checkEmail(e) {
         body: JSON.stringify(email)
     })
         .then(res => {
-            console.log(res);
-            return res.json();
+            return res.text();
         })
-        .then(data => console.log(data))
-
-    if (true) {
-        nextStep(registration, registrationContunie);
-        personalInfo();
-    }
-
-    
+        .then(data => {
+            if (data == 'false') {
+                nextStep(registration, registrationContunie);
+                personalInfo();
+            }
+            
+        })
+        .catch(err => {
+            console.log(err);
+        })
 }
 
 formEmail.addEventListener('submit', checkEmail);
 
 // Function that contunie registration (generate name and pass inputs)
 function personalInfo() {
+    if (!inputEmail.value) return;
     registration.removeChild(document.querySelector('.socialRegistration'));
     const btnCircle = document.querySelector('.nextDiv input[type=button]');
     btnCircle.addEventListener('click', () => {
@@ -70,27 +54,23 @@ async function registrateUser(e) {
     const form = new FormData(e.target)
     form.forEach((value, key) => obj[key] = value);
     
-    let request = new Request(e.target.action, {
-        method: 'POST',
-        body: JSON.stringify(obj),
-        mode: 'no-cors', 
+    await fetch("http://localhost:3000/api/users", {
+        method: "POST",
         headers: {
-            'Content-Type': 'application/json',
-        }
-    });
-    
-    await fetch(request)
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(obj)
+    })
         .then(res => {
-            console.log(res)
+            console.log(res);
+            return res.text();
+        })
+        .then(data => {
+            console.log(data);
         })
         .catch(err => {
-            console.log(err)
-        }
-    );
-
-    if (true) {
-        console.log(JSON.stringify(obj));
-    }
+            console.log(err);
+        })
 } 
 
 // Animation
