@@ -12,7 +12,7 @@
 
     <div class="registration">
         <div class="logo"><img src="./images/daily-feat-logo.svg" alt=""></div>
-        <form action="" autocomplete="off">
+        <form action="" autocomplete="off" class="formEmail">
             <input type="email" class="input" name="email" id="inputEmail" placeholder="enter email... ">
             <input type="submit" class="input" value="create an account">
         </form>
@@ -48,6 +48,20 @@
                 </a> 
             </div>
         </div>
+
+        <!-- Hello There -->
+
+        <div class="hello" style="display:none"><h1>Hello There</h1></div>
+        <div class="nextDiv" style="display:none"><input type="button" value=">" class="nextCircle"></div>
+
+        <!-- Name and password -->
+
+        <form class="formRegistration" action="https://dailyfeat.herokuapp.com/api/users" autocomplete="off">
+            <input type="text" class="input" name="login" id="name" placeholder="what would you like to be called?">
+            <input type="password" class="input" name="password" id="password" placeholder="enter your password...">
+            <input type="submit" class="nextCircle" value=">">
+        </form>
+
     </div>
 
     <!-- Log-in -->
@@ -62,23 +76,16 @@
 
     <!-- Second Reg Page -->
 
-    <div class="registrationContinue">
+    <!-- <div class="registrationContinue">
         
-        <!-- Hello There -->
         
         <div class="logo"><img src="./images/daily-feat-logo.svg" alt=""></div>
-        <div class="hello"><h1>Hello There</h1></div>
-        <div class="nextDiv"><input type="button" value=">" class="nextCircle"></div>
+        
 
-        <!-- Name and password -->
 
-        <form action="https://dailyfeat.herokuapp.com/api/users" autocomplete="off">
-            <input type="text" class="input" name="login" id="name" placeholder="what would you like to be called?">
-            <input type="password" class="input" name="password" id="password" placeholder="enter your password...">
-            <input type="submit" class="nextCircle" value=">">
-        </form>
+        
 
-    </div>
+    </div> -->
 
     
 </body>

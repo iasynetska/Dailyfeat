@@ -1,15 +1,20 @@
 const formEmail = document.querySelector('.registration form');
 const inputEmail = document.getElementById('inputEmail');
 const registration = document.querySelector('.registration');
+const login = document.querySelector('.logIn');
 const registrationContunie = document.querySelector('.registrationContinue');
 const email = {};
 
 // Check email on DB
 async function checkEmail(e) {
     e.preventDefault();
+    // Is empty?
+    if(!inputEmail.value) { emptyEmail(); return; }
 
     const form = new FormData(e.target)
     form.forEach((value, key) => email[key] = value);
+
+    // Check email 
 
     await fetch("https://dailyfeat.herokuapp.com/api/emails", {
         method: "POST",
@@ -23,8 +28,9 @@ async function checkEmail(e) {
         })
         .then(data => {
             if (data == 'false') {
-                nextStep(registration, registrationContunie);
-                personalInfo();
+                regContinue();
+            } if (data == 'true') {
+                logIn();
             }
             
         })
@@ -35,18 +41,7 @@ async function checkEmail(e) {
 
 formEmail.addEventListener('submit', checkEmail);
 
-// Function that contunie registration (generate name and pass inputs)
-function personalInfo() {
-    if (!inputEmail.value) return;
-    registration.removeChild(document.querySelector('.socialRegistration'));
-    const btnCircle = document.querySelector('.nextDiv input[type=button]');
-    btnCircle.addEventListener('click', () => {
-        document.querySelector('.hello').style.display = 'none';
-        document.querySelector('.nextDiv').style.display = 'none';
-        registrationContunie.querySelector('form').style.display = 'flex';
-    })
-    registrationContunie.querySelector('form').addEventListener('submit', registrateUser);
-}
+// Registrate user
 
 async function registrateUser(e) {
     e.preventDefault();
@@ -73,22 +68,37 @@ async function registrateUser(e) {
         })
 } 
 
-// Animation
-function nextAnimation(step1, step2) {
-    step1.classList.add('extinction');
-    step2.style.display = 'flex';
-    step1.addEventListener('animationend', () => {
-        step1.style.display = 'none';   
+// If email isn't - reg
+
+function regContinue() {
+    document.querySelector('.socialRegistration').style.display = 'none';
+    formEmail.style.display = 'none';
+    document.querySelector('.hello').style.display = 'block';
+    document.querySelector('.nextDiv').style.display = 'block';
+    const btnCircle = document.querySelector('.nextDiv input[type=button]');
+    btnCircle.addEventListener('click', () => {
+        document.querySelector('.hello').style.display = 'none';
+        document.querySelector('.nextDiv').style.display = 'none';
+        document.querySelector('.formRegistration').style.display = 'flex';
     })
 }
-// Check is email empty
-function nextStep(step1, step2) {
+
+// If email is - login
+
+function logIn() {
+    registration.style.display = 'none';
+    document.querySelector('.socialRegistration').style.display = 'none';
+    login.style.display = 'flex';
+}
+
+
+// Is email empty ?
+
+function emptyEmail() {
     if (!inputEmail.value) {
         inputEmail.style.boxShadow = '0px 0px 10px red';
         inputEmail.addEventListener('change', () => {
             inputEmail.style.boxShadow = '0px 0px 15px rgba(0, 0, 0, 0.329)';
         });
-        return;
-    };
-    nextAnimation(step1, step2);
+    }
 }

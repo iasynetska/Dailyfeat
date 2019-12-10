@@ -1,6 +1,6 @@
 /*--------First-Reg-Page---------*/
 
-.registration, .registrationContinue {
+.registration {
     height: 100vh;
     display: flex;
     align-items: center;
@@ -13,7 +13,7 @@
     width: 100%;
 }
 
-.registration form {
+.formEmail {
     display: flex;
     flex-direction: column;
     width: 35%;
@@ -30,7 +30,7 @@
     margin-bottom: 1em;
 }
 
-.registration form input[type="submit"] {
+.formEmail input[type="submit"] {
     border: 1.5px solid #fff;
     background: #fff;
     border-radius: 1.2em;
@@ -42,7 +42,7 @@
     transition: .5s background, .3s border, .3s color;
 }
 
-.registration form input[type="submit"]:hover {
+.formEmail input[type="submit"]:hover {
     color: #fff;
     border: 1.5px solid var(--selectColor);
     background: var(--selectColor);
@@ -75,19 +75,16 @@
 
 /*--------Second-Reg-Page---------*/
 
-.registrationContinue {
-    display: none;
-    color: #fff;
-    justify-content: space-evenly;
-}
-
-.registrationContinue form {
+.formRegistration {
     display: none;
     flex-direction: column;
     width: 45%;
+    color: #fff;
+    margin-top: -5em;
+
 }
 
-.registrationContinue form input[type="submit"] {
+.formRegistration input[type="submit"] {
     margin: auto;
     margin-top: 2em;
 }
@@ -104,13 +101,13 @@
     .logo {
         width: 20%;
     }
-    .registration form {
+    .formEmail {
         width: 45%;
     }
-    .registration form input[type="email"] {
+    .formEmail input[type="email"] {
         padding: 0.8em 1em;
     }
-    .registration form input[type="submit"] {
+    .formEmail input[type="submit"] {
         padding: 0.8em 1em;
     }
 }
@@ -119,36 +116,36 @@
     .logo {
         width: 25%;
     }
-    .registration form {
+    .formEmail {
         width: 60%;
     }
-    .registration form input[type="email"] {
+    .formEmail input[type="email"] {
         padding: 0.8em 1em;
     }
-    .registration form input[type="submit"] {
+    .formEmail input[type="submit"] {
         padding: 0.8em 1em;
     }
-    .registrationContinue form {
+    .formRegistration {
         width: 70%;
     }
 }
 
 @media screen and (min-width: 415px) and (max-width: 600px) {
-    .registration form {
+    .formEmail {
         width: 70%;
     }
-    .registration form input[type="email"] {
+    .formEmail input[type="email"] {
         padding: 0.75em 1em;
         font-size: 1rem;
     }
-    .registration form input[type="submit"] {
+    .formEmail input[type="submit"] {
         padding: 0.75em 1em;
         font-size: 1rem;
     }
     input::placeholder {
         font-size: 1rem;
     }
-    .registrationContinue form {
+    .formRegistration {
         width: 70%;
     }
 }
@@ -157,15 +154,15 @@
     .logo img {
         width: 100%;
     }
-    .registration form {
+    .formEmail {
         width: 80%;
     }
-    .registration form input[type="email"] {
+    .formEmail input[type="email"] {
         padding: 0.75em 1em;
         font-size: 0.9rem;
         margin-bottom: 1em;
     }
-    .registration form input[type="submit"] {
+    .formEmail input[type="submit"] {
         padding: 0.75em 1em;
         letter-spacing: 0.32px;
         font-size: 0.9rem;
@@ -173,7 +170,7 @@
     input::placeholder {
         font-size: 0.9rem;
     }
-    .registrationContinue form {
+    .formRegistration {
         width: 80%;
     }
 }
