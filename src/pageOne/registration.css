@@ -57,6 +57,10 @@
     margin-top: 2em;
 }
 
+.hello {
+    color: #fff;
+}
+
 .social svg {
     transform: scale(0.7);
 }

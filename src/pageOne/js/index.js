@@ -1,9 +1,9 @@
 const formEmail = document.querySelector('.registration form');
 const inputEmail = document.getElementById('inputEmail');
-const registration = document.querySelector('.registration');
-const login = document.querySelector('.logIn');
-const registrationContunie = document.querySelector('.registrationContinue');
 const email = {};
+
+const regContinue = require('./regContinue');
+const logIn = require('./login');
 
 // Check email on DB
 async function checkEmail(e) {
@@ -68,32 +68,7 @@ async function registrateUser(e) {
         })
 } 
 
-// If email isn't - reg
-
-function regContinue() {
-    document.querySelector('.socialRegistration').style.display = 'none';
-    formEmail.style.display = 'none';
-    document.querySelector('.hello').style.display = 'block';
-    document.querySelector('.nextDiv').style.display = 'block';
-    const btnCircle = document.querySelector('.nextDiv input[type=button]');
-    btnCircle.addEventListener('click', () => {
-        document.querySelector('.hello').style.display = 'none';
-        document.querySelector('.nextDiv').style.display = 'none';
-        document.querySelector('.formRegistration').style.display = 'flex';
-    })
-}
-
-// If email is - login
-
-function logIn() {
-    registration.style.display = 'none';
-    document.querySelector('.socialRegistration').style.display = 'none';
-    login.style.display = 'flex';
-}
-
-
 // Is email empty ?
-
 function emptyEmail() {
     if (!inputEmail.value) {
         inputEmail.style.boxShadow = '0px 0px 10px red';

@@ -1,22 +1,3 @@
-.extinction {
-    animation: nextSection 1s ease-in-out;
-}
-
-.extinctionOpacity {
-    animation: nextSectionOpacity 1s ease-in-out;
-    display: flex !important;
-}
-
-@keyframes nextSectionOpacity {
-    0% {opacity:0;}
-    100% {opacity:1;}
-}
-
-@keyframes nextSection {
-    0% {opacity:1; margin-top:0}
-    100% {opacity:0;margin-top:-100vh}
-}
-
 .logIn {
     height: 100vh;
     background: #fff;
@@ -35,10 +16,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 35%;
 }
 
 .logIn .input {
     border: 1.5px solid var(--selectColor);
+    width: 100%;
     margin-bottom: 5em;
     color: var(--selectColor);
 }
@@ -49,4 +32,28 @@
 
 .logIn .input::placeholder {
     color: var(--selectColor);
+}
+
+@media screen and (min-width: 901px) and (max-width: 1200px) {
+    .logIn form {
+        width: 45%;
+    }
+}
+
+@media screen and (min-width: 601px) and (max-width: 900px) {
+    .logIn form {
+        width: 60%;
+    }
+}
+
+@media screen and (min-width: 415px) and (max-width: 600px) {
+    .logIn form {
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 414px) {
+    .logIn form {
+        width: 80%;
+    }
 }
