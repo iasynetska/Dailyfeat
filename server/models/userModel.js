@@ -23,7 +23,41 @@ const userSchema = new mongoose.Schema({
 		required: true,
 		minlehgth: 5,
 		maxlength: 1024
-	}
+	},
+	feats: [{
+		id: {
+			type: mongoose.Schema.Types.ObjectId
+		},
+		title: {
+			type: String,
+			requared: true,
+			minlehgth: 2,
+			maxlength: 50
+		},
+		isTimeMaked: {
+			type: Boolean,
+			default: false
+		},
+		isAchieved: {
+			type: Boolean,
+			default: false
+		},
+		focus: {
+			type: Number,
+			min: 0,
+			max: 5,
+			default: 0
+		},
+		thoughts: {
+			type: String,
+			minlehgth: 1,
+			maxlength: 255
+		},
+		created: {
+			type: Date,
+			default: Date.now
+		}
+	}]
 });
 
 userSchema.methods.generateAuthToken = function(){
@@ -31,7 +65,7 @@ userSchema.methods.generateAuthToken = function(){
 	return token;
 } 
 
-const User = mongoose.model('User', userSchema);
+const User = mongoose.model('users', userSchema);
 
 const validationUserSchema = {
 	login: Joi.string().min(3).max(25).required(),
