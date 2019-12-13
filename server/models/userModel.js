@@ -8,8 +8,7 @@ const userSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		minlehgth: 3,
-		maxlength: 25,
-		unique: true
+		maxlength: 25
 	},
 	email: {
 		type: String,
@@ -25,9 +24,6 @@ const userSchema = new mongoose.Schema({
 		maxlength: 1024
 	},
 	feats: [{
-		id: {
-			type: mongoose.Schema.Types.ObjectId
-		},
 		title: {
 			type: String,
 			requared: true,
@@ -44,9 +40,8 @@ const userSchema = new mongoose.Schema({
 		},
 		focus: {
 			type: Number,
-			min: 0,
-			max: 5,
-			default: 0
+			min: 1,
+			max: 5
 		},
 		thoughts: {
 			type: String,
@@ -67,14 +62,27 @@ userSchema.methods.generateAuthToken = function(){
 
 const User = mongoose.model('users', userSchema);
 
+const validationFeatSchema = {
+	title: Joi.string().min(2).max(50).required(),
+	isTimeMaked: Joi.boolean(),
+	isAchieved: Joi.boolean(),
+	focus: Joi.number().min(0).max(5),
+	thoughts: Joi.string().min(1).max(255)
+};
+
 const validationUserSchema = {
 	login: Joi.string().min(3).max(25).required(),
 	email: Joi.string().min(5).max(255).required().email(),
-	password: Joi.string().min(5).max(1024).required()
+	password: Joi.string().min(5).max(1024).required(),
+	feats: Joi.array().items(Joi.object(validationFeatSchema))
 };
 
-function validate(user) {
+function validateUser(user) {
 	return Joi.validate(user, validationUserSchema);
+}
+
+function validateFeat(feat) {
+	return Joi.validate(feat, validationFeatSchema);
 }
 
 const validationUserAuthSchema = {
@@ -95,6 +103,7 @@ function validateEmail(email) {
 }
 
 exports.User = User;
-exports.validate = validate;
+exports.validateUser = validateUser;
+exports.validateFeat = validateFeat;
 exports.validateEmail = validateEmail;
 exports.validateUserAuth = validateUserAuth;
