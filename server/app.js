@@ -14,7 +14,6 @@ const auth = require('./routes/authRoutes.js');
 const express = require('express');
 const app = express();
 
-// app.use(addAccessControl);
 app.use(corsHeaders.addHeaders);
 app.use(bodyParser.json());
 app.use('/api/users', users);
