@@ -36,6 +36,9 @@ router.post('/', async (req, res) => {
 
 // create new feat
 router.post('/:_id/feats', auth, async (req, res) => {
+	// check authorisation
+	if(req.params._id !== req.user._id) return res.status(403).send({error: {auth: 'Request forbidden'}});
+	
 	// validate feat
 	const { error } = validateFeat(req.body);
 	if(error) return res.status(400).send({error: {validate: error.details[0].message}});
