@@ -4,10 +4,9 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
+const auth = require('../middlewares/auth.js')
 
 const {User, validateUser, validateFeat} = require('../models/userModel');
-const {checkUserAuthorised} = require('../services/jwtTools');
-
 
 // create new User
 router.post('/', async (req, res) => {
@@ -36,10 +35,7 @@ router.post('/', async (req, res) => {
 
 
 // create new feat
-router.post('/:_id/feats', async (req, res) => {
-	// check user authorised
-	if(!checkUserAuthorised(req, res)) return;
-	
+router.post('/:_id/feats', auth, async (req, res) => {
 	// validate feat
 	const { error } = validateFeat(req.body);
 	if(error) return res.status(400).send({error: {validate: error.details[0].message}});
