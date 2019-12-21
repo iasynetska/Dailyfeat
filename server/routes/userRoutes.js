@@ -6,7 +6,7 @@ const express = require('express');
 const router = express.Router();
 const auth = require('../middlewares/auth.js')
 
-const {User, validateUser, validateFeat} = require('../models/userModel');
+const {User, validateUser, validateNewFeat, validatePassword} = require('../models/userModel');
 
 // create new User
 router.post('/', async (req, res) => {
@@ -16,9 +16,7 @@ router.post('/', async (req, res) => {
 	// check for unique email
 	let user = await User.findOne({email:req.body.email});
 	if(user) {
-		const message = {error: {}};
-		message.error.email = 'Email already exists';
-		return res.status(400).send(message);
+		return res.status(400).send({error: {email: 'Email already exists'}});
 	}
 
 	// create new user
@@ -35,12 +33,12 @@ router.post('/', async (req, res) => {
 
 
 // create new feat
-router.post('/:_id/feats', auth, async (req, res) => {
+router.post('/:_idUser/feats', auth, async (req, res) => {
 	// check authorisation
-	if(req.params._id !== req.user._id) return res.status(403).send({error: {auth: 'Request forbidden'}});
+	if(req.params._idUser !== req.user._id) return res.status(403).send({error: {auth: 'Request forbidden'}});
 	
 	// validate feat
-	const { error } = validateFeat(req.body);
+	const { error } = validateNewFeat(req.body);
 	if(error) return res.status(400).send({error: {validate: error.details[0].message}});
 	
 	// generating id for new feat
@@ -50,7 +48,7 @@ router.post('/:_id/feats', auth, async (req, res) => {
 	
 	// create new feat
 	const dbResponse = await User.findByIdAndUpdate(
-		req.params._id, {
+		req.params._idUser, {
 			$push: {
 				feats: req.body
 			}
@@ -60,6 +58,32 @@ router.post('/:_id/feats', auth, async (req, res) => {
 	});
 	
 	res.send(dbResponse.feats[0]);
+});
+
+
+// change User's password
+router.patch('/:_idUser', auth, async (req, res) => {
+	// check authorisation
+	if(req.params._idUser !== req.user._id) return res.status(403).send({error: {auth: 'Request forbidden'}});
+
+	// validate password
+	const { error } = validatePassword(req.body);
+	if(error) return res.status(400).send({error: {validate: error.details[0].message}});
+
+	//hash new password
+	const salt = await bcrypt.genSalt(config.get("bcrypt.salt"));
+	req.body.password = await bcrypt.hash(req.body.password, salt);
+
+	// change User's password
+	const dbResponse = await User.findByIdAndUpdate(
+		req.params._idUser,
+		req.body,
+		{new: true}
+	).catch(error => {
+		return res.status(500).send({error: {server: error}});
+	});
+
+	res.send(_.pick(dbResponse, ['_id', 'login', 'email', 'feats']));
 });
 
 module.exports = router;
