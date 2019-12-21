@@ -4,14 +4,19 @@ const _ = require('lodash');
 const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
-const auth = require('../middlewares/auth.js')
+const auth = require('../middlewares/auth.js');
 
-const {User, validateUser, validateNewFeat, validatePassword} = require('../models/userModel');
+const { User,
+	validateUser,
+	validateNewFeat,
+	validateUpdatedFeat,
+	validatePassword,
+	formatValidationErrors } = require('../models/userModel');
 
 // create new User
 router.post('/', async (req, res) => {
 	const { error } = validateUser(req.body);
-	if(error) return res.status(400).send(error.details[0].message);
+	if(error) return res.status(400).send({error: {validation : formatValidationErrors(error)}});
 
 	// check for unique email
 	let user = await User.findOne({email:req.body.email});
@@ -39,7 +44,7 @@ router.post('/:_idUser/feats', auth, async (req, res) => {
 	
 	// validate feat
 	const { error } = validateNewFeat(req.body);
-	if(error) return res.status(400).send({error: {validate: error.details[0].message}});
+	if(error) return res.status(400).send({error: {validation : formatValidationErrors(error)}});
 	
 	// generating id for new feat
 	const ObjectId = mongoose.Types.ObjectId;
@@ -68,7 +73,7 @@ router.patch('/:_idUser', auth, async (req, res) => {
 
 	// validate password
 	const { error } = validatePassword(req.body);
-	if(error) return res.status(400).send({error: {validate: error.details[0].message}});
+	if(error) return res.status(400).send({error: {validation : formatValidationErrors(error)}});
 
 	//hash new password
 	const salt = await bcrypt.genSalt(config.get("bcrypt.salt"));
@@ -78,6 +83,42 @@ router.patch('/:_idUser', auth, async (req, res) => {
 	const dbResponse = await User.findByIdAndUpdate(
 		req.params._idUser,
 		req.body,
+		{new: true}
+	).catch(error => {
+		return res.status(500).send({error: {server: error}});
+	});
+
+	res.send(_.pick(dbResponse, ['_id', 'login', 'email', 'feats']));
+});
+
+
+// change User's feat
+router.patch('/:_idUser/feats/:_idFeat', auth, async (req, res) => {
+	// check authorisation
+	if(req.params._idUser !== req.user._id) return res.status(403).send({error: {auth: 'Request forbidden'}});
+
+	// validate feat
+	const { error } = validateUpdatedFeat(req.body);
+	if(error) return res.status(400).send({error: { validation : formatValidationErrors(error)}});
+
+	// check feat exist
+	let feat = await User.findOne({_id:req.params._idUser}, 'feats')
+		.then(user =>  user.feats.id(req.params._idFeat));
+	if(!feat) {
+		return res.status(404).send({error: {feat: 'Not found'}});
+	}
+
+	// get fields from request to update
+	let fieldsToUpdate = Object.keys(req.body)
+		.reduce((accumulator, currentValue) => {
+			accumulator['feats.$.' + currentValue] = req.body[currentValue];
+			return accumulator
+		}, {});
+
+	// change User's feat
+	const dbResponse = await User.findOneAndUpdate(
+		{"_id":req.params._idUser, "feats._id": req.params._idFeat},
+		fieldsToUpdate,
 		{new: true}
 	).catch(error => {
 		return res.status(500).send({error: {server: error}});

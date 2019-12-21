@@ -89,6 +89,10 @@ function validateNewFeat(feat) {
 	return Joi.validate(feat, {title: validationFeatSchema.title.required()});
 }
 
+function validateUpdatedFeat(feat) {
+	return Joi.validate(feat, validationFeatSchema, {abortEarly: false});
+}
+
 const validationUserAuthSchema = {
 	email: validationUserSchema.email,
 	password: validationUserSchema.password
@@ -106,9 +110,18 @@ function validateEmail(email) {
 	return Joi.validate(email, validationEmailSchema);
 }
 
+function formatValidationErrors(error) {
+	return error.details.reduce((accumulator, currentValue) => {
+		accumulator.push(currentValue.message);
+		return accumulator;
+	}, []);
+}
+
 exports.User = User;
 exports.validateUser = validateUser;
 exports.validateNewFeat = validateNewFeat;
+exports.validateUpdatedFeat = validateUpdatedFeat;
 exports.validateEmail = validateEmail;
 exports.validateUserAuth = validateUserAuth;
 exports.validatePassword = validatePassword;
+exports.formatValidationErrors = formatValidationErrors;
