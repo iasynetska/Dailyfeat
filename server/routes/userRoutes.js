@@ -101,13 +101,6 @@ router.patch('/:_idUser/feats/:_idFeat', auth, async (req, res) => {
 	const { error } = validateUpdatedFeat(req.body);
 	if(error) return res.status(400).send({error: { validation : formatValidationErrors(error)}});
 
-	// check feat exist
-	let feat = await User.findOne({_id:req.params._idUser}, 'feats')
-		.then(user =>  user.feats.id(req.params._idFeat));
-	if(!feat) {
-		return res.status(404).send({error: {feat: 'Not found'}});
-	}
-
 	// get fields from request to update
 	let fieldsToUpdate = Object.keys(req.body)
 		.reduce((accumulator, currentValue) => {
@@ -124,7 +117,11 @@ router.patch('/:_idUser/feats/:_idFeat', auth, async (req, res) => {
 		return res.status(500).send({error: {server: error}});
 	});
 
-	res.send(_.pick(dbResponse, ['_id', 'login', 'email', 'feats']));
+	if(dbResponse) {
+		return res.send(_.pick(dbResponse, ['_id', 'login', 'email', 'feats']));
+	} else {
+		return res.status(404).send({error: {feat: 'Not found'}});
+	}
 });
 
 
