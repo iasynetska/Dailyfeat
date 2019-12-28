@@ -277,6 +277,8 @@ router.patch('/:_idUser/habits/:_idHabit', auth, async (req, res) => {
 			return accumulator
 		}, {});
 
+	console.log(fieldsToUpdate);
+
 	const dbResponse = await User.findOneAndUpdate({
 			"_id": req.params._idUser,
 			"habits._id": req.params._idHabit
@@ -291,6 +293,8 @@ router.patch('/:_idUser/habits/:_idHabit', auth, async (req, res) => {
 			}
 		});
 	});
+
+	console.log(dbResponse);
 
 	if (dbResponse) {
 		return res.send(_.pick(dbResponse, ['habits']));
@@ -316,6 +320,33 @@ router.get('/:_idUser/habits', auth, async (req, res) => {
 
 	const habit = habits.find(habit => !habit.isClosed);
 
+	const MILISEC_PER_DAY = 1000 * 60 * 60 * 24;
+
+	if (Date.now - habit.timestamp > MILISEC_PER_DAY){
+		habit.isCompletedToday = false;
+		habit.timestamp = Date.now;
+
+		const dbResponse = await User.findOneAndUpdate({
+				"_id": req.params._idUser,
+				"habits._id": req.params._idHabit
+			},
+			{
+				'habits.$.isCompletedToday': 'false',
+				'habits.$.timestamp': `${Date.now}`
+			},
+			{
+				new: true
+			}
+		).catch(error => {
+			return res.status(500).send({
+				error: {
+					server: error
+				}
+			});
+	});
+
+	}
+
 	if (!habit) {
 		return res.status(404).send({
 			messsage: "Active habit nod found"
@@ -325,8 +356,8 @@ router.get('/:_idUser/habits', auth, async (req, res) => {
 	return res.send(habit);
 });
 
-// remove User's feat
-router.delete('/:_idUser/feats/:_idFeat', auth, async (req, res) => {
+// remove User's habit
+router.delete('/:_idUser/habits/:_idHabit', auth, async (req, res) => {
 
 	if (req.params._idUser !== req.user._id) return res.status(403).send({
 		error: {
@@ -336,11 +367,11 @@ router.delete('/:_idUser/feats/:_idFeat', auth, async (req, res) => {
 
 	const dbResponse = await User.findOneAndUpdate({
 		"_id": req.params._idUser,
-		"feats._id": req.params._idFeat
+		"habits._id": req.params._idHabit
 	}, {
 		$pull: {
-			"feats": {
-				"_id": req.params._idFeat
+			"habits": {
+				"_id": req.params._idHabit
 			}
 		}
 	}, {

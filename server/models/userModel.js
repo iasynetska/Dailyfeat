@@ -79,6 +79,14 @@ const userSchema = new mongoose.Schema({
 		isClosed: {
 			type: Boolean,
 			default: false
+		},
+		isCompletedToday: {
+			type: Boolean,
+			default: false
+		},
+		timestamp: {
+			type: Date,
+			default: Date.now
 		}
 	}]
 });
@@ -104,7 +112,8 @@ const validationHabitSchema = {
 	attractiveDesc: Joi.string().max(100),
 	easyDesc: Joi.string().max(100),
 	satisfyingDesc: Joi.string().max(100),
-	isClosed: Joi.boolean()
+	isClosed: Joi.boolean(),
+	isCompletedToday: Joi.boolean()
 };
 
 const validationUserSchema = {
