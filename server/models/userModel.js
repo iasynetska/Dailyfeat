@@ -52,6 +52,30 @@ const userSchema = new mongoose.Schema({
 			type: Date,
 			default: Date.now
 		}
+	}],
+	habits: [{
+		title: {
+			type: String,
+			required: true,
+			minlength: 2,
+			maxlength: 50
+		},
+		obviousDesc: {
+			type: String,
+			maxlength: 100
+		},
+		attractiveDesc: {
+			type: String,
+			maxlength: 100
+		},
+		easyDesc: {
+			type: String,
+			maxlength: 100
+		},
+		satisfyingDesc: {
+			type: String,
+			maxlength: 100
+		}
 	}]
 });
 
@@ -70,11 +94,20 @@ const validationFeatSchema = {
 	thoughts: Joi.string().min(1).max(255)
 };
 
+const validationHabitSchema = {
+	title: Joi.string().min(2).max(50),
+	obviousDesc: Joi.string().max(100),
+	attractiveDesc: Joi.string().max(100),
+	easyDesc: Joi.string().max(100),
+	satisfyingDesc: Joi.string().max(100)
+};
+
 const validationUserSchema = {
 	login: Joi.string().min(3).max(25).required(),
 	email: Joi.string().min(5).max(255).required().email(),
 	password: Joi.string().min(5).max(1024).required(),
-	feats: Joi.array().items(Joi.object(validationFeatSchema))
+	feats: Joi.array().items(Joi.object(validationFeatSchema)),
+	habits: Joi.array().items(Joi.object(validationHabitSchema))
 };
 
 function validateUser(user) {
@@ -91,6 +124,10 @@ function validateNewFeat(feat) {
 
 function validateUpdatedFeat(feat) {
 	return Joi.validate(feat, validationFeatSchema, {abortEarly: false});
+}
+
+function validateHabit(habit) {
+	return Joi.validate(habit, validationHabitSchema);
 }
 
 const validationUserAuthSchema = {
@@ -121,6 +158,7 @@ exports.User = User;
 exports.validateUser = validateUser;
 exports.validateNewFeat = validateNewFeat;
 exports.validateUpdatedFeat = validateUpdatedFeat;
+exports.validateHabit = validateHabit;
 exports.validateEmail = validateEmail;
 exports.validateUserAuth = validateUserAuth;
 exports.validatePassword = validatePassword;
