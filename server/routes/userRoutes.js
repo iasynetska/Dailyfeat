@@ -325,4 +325,46 @@ router.get('/:_idUser/habits', auth, async (req, res) => {
 	return res.send(habit);
 });
 
+// remove User's feat
+router.delete('/:_idUser/feats/:_idFeat', auth, async (req, res) => {
+
+	if (req.params._idUser !== req.user._id) return res.status(403).send({
+		error: {
+			auth: 'Request forbidden'
+		}
+	});
+
+	const dbResponse = await User.findOneAndUpdate({
+		"_id": req.params._idUser,
+		"feats._id": req.params._idFeat
+	}, {
+		$pull: {
+			"feats": {
+				"_id": req.params._idFeat
+			}
+		}
+	}, {
+		new: true
+	})
+	.catch(error => {
+		return res.status(500).send({
+			error: {
+				server: error
+			}
+		});
+	});
+
+	if (dbResponse) {
+		return res.send({
+			message: 'Habit was deleted'
+		});
+	} else {
+		return res.status(404).send({
+			error: {
+				feat: 'Not found'
+			}
+		});
+	}
+});
+
 module.exports = router;
