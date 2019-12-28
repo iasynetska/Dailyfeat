@@ -303,4 +303,26 @@ router.patch('/:_idUser/habits/:_idHabit', auth, async (req, res) => {
 	}
 });
 
+// get active habit
+router.get('/:_idUser/habits', auth, async (req, res) => {
+
+	if (req.params._idUser !== req.user._id) return res.status(403).send({
+		error: {
+			auth: 'Request forbidden'
+		}
+	});
+
+	const { habits } = await User.findById(req.params._idUser);
+
+	const habit = habits.find(habit => !habit.isClosed);
+
+	if (!habit) {
+		return res.status(404).send({
+			messsage: "Active habit nod found"
+		});
+	}
+
+	return res.send(habit);
+});
+
 module.exports = router;
