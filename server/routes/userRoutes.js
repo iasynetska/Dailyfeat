@@ -10,6 +10,7 @@ const { User,
 	validateUser,
 	validateNewFeat,
 	validateUpdatedFeat,
+	validateHabit,
 	validatePassword,
 	formatValidationErrors } = require('../models/userModel');
 
@@ -189,6 +190,57 @@ router.get('/:_idUser/feats', auth, async (req, res) => {
 	});
 
 	res.send(result);
+});
+
+// create new habit
+router.post('/:_idUser/habits', auth, async (req, res) => {
+
+	if (req.params._idUser !== req.user._id){ 
+		return res.status(403).send({
+			error: {
+				auth: 'Request forbidden'
+			}
+		});
+	}
+
+	const { error } = validateHabit(req.body);
+	if (error){ 
+		return res.status(400).send({
+			error: {
+				validation: formatValidationErrors(error)
+			}
+		});
+	}
+
+	const ObjectId = mongoose.Types.ObjectId;
+	const idHabit = new ObjectId;
+	req.body._id = idHabit;
+
+	const dbResponse = await User.findByIdAndUpdate(
+		req.params._idUser, {
+			$push: {
+				habits: req.body
+			}
+		}, {
+			new: true,
+			select: {
+				_id: 0,
+				habits: {
+					$elemMatch: {
+						_id: idHabit
+					}
+				}
+			}
+		}
+	).catch(error => {
+		return res.status(500).send({
+			error: {
+				server: error
+			}
+		});
+	});
+
+	res.send(dbResponse.habits[0]);
 });
 
 module.exports = router;
