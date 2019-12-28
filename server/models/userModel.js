@@ -75,6 +75,10 @@ const userSchema = new mongoose.Schema({
 		satisfyingDesc: {
 			type: String,
 			maxlength: 100
+		},
+		isClosed: {
+			type: Boolean,
+			default: false
 		}
 	}]
 });
@@ -99,7 +103,8 @@ const validationHabitSchema = {
 	obviousDesc: Joi.string().max(100),
 	attractiveDesc: Joi.string().max(100),
 	easyDesc: Joi.string().max(100),
-	satisfyingDesc: Joi.string().max(100)
+	satisfyingDesc: Joi.string().max(100),
+	isClosed: Joi.boolean()
 };
 
 const validationUserSchema = {

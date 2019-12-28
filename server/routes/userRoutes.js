@@ -203,6 +203,18 @@ router.post('/:_idUser/habits', auth, async (req, res) => {
 		});
 	}
 
+	const { habits } = await User.findById(req.params._idUser);
+
+	let isUnfinishedHabit = habits.some(habit => !habit.isClosed);
+
+	if (isUnfinishedHabit) {
+		return res.status(400).send({
+			error: {
+				validation: 'Unfinished habit found'
+			}
+		});
+	}
+
 	const { error } = validateHabit(req.body);
 	if (error){ 
 		return res.status(400).send({
@@ -241,6 +253,54 @@ router.post('/:_idUser/habits', auth, async (req, res) => {
 	});
 
 	res.send(dbResponse.habits[0]);
+});
+
+// change User's habit
+router.patch('/:_idUser/habits/:_idHabit', auth, async (req, res) => {
+
+	if (req.params._idUser !== req.user._id) return res.status(403).send({
+		error: {
+			auth: 'Request forbidden'
+		}
+	});
+
+	const { error } = validateHabit(req.body);
+	if (error) return res.status(400).send({
+		error: {
+			validation: formatValidationErrors(error)
+		}
+	});
+
+	let fieldsToUpdate = Object.keys(req.body)
+		.reduce((accumulator, currentValue) => {
+			accumulator['habits.$.' + currentValue] = req.body[currentValue];
+			return accumulator
+		}, {});
+
+	const dbResponse = await User.findOneAndUpdate({
+			"_id": req.params._idUser,
+			"habits._id": req.params._idHabit
+		},
+		fieldsToUpdate, {
+			new: true
+		}
+	).catch(error => {
+		return res.status(500).send({
+			error: {
+				server: error
+			}
+		});
+	});
+
+	if (dbResponse) {
+		return res.send(_.pick(dbResponse, ['habits']));
+	} else {
+		return res.status(404).send({
+			error: {
+				feat: 'Not found'
+			}
+		});
+	}
 });
 
 module.exports = router;
