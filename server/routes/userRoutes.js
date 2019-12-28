@@ -45,6 +45,19 @@ router.post('/:_idUser/feats', auth, async (req, res) => {
 	// validate feat
 	const { error } = validateNewFeat(req.body);
 	if(error) return res.status(400).send({error: {validation : formatValidationErrors(error)}});
+
+	// check if active feat exist
+	const user = await User.findOne(
+		{
+			_id : req.params._idUser,
+			feats: {$elemMatch: {'created': {$gt:new Date(Date.now() - 24*60*60 * 1000)}}}
+		}
+	).catch(error => {
+		return res.status(500).send({error: {server: error}});
+	});
+	if(user) {
+		return res.status(400).send({error: {feat: 'Active feat already exists'}});
+	}
 	
 	// generating id for new feat
 	const ObjectId = mongoose.Types.ObjectId;
