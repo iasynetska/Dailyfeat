@@ -146,4 +146,36 @@ router.delete('/:_idUser/feats/:_idFeat', auth, async (req, res) => {
 	}
 });
 
+
+// get only active feat or all feats
+router.get('/:_idUser/feats', auth, async (req, res) => {
+	// check authorisation
+	if (req.params._idUser !== req.user._id) return res.status(403).send({error: {auth: 'Request forbidden'}});
+
+	let dbResponse;
+	const onlyActive = req.query.only_active;
+
+	// get db result
+	if(onlyActive === "true" || onlyActive === undefined) {
+		dbResponse = User.findById(
+			req.params._idUser,
+			{_id: 0, feats: {$elemMatch: {'created': {$gt:new Date(Date.now() - 24*60*60 * 1000)}}}}
+		)
+	} else if (onlyActive == "false") {
+		dbResponse = User.findById(
+			req.params._idUser,
+			{_id: 0, feats: 1}
+		)
+	} else {
+		return res.status(400).send({error: {request: "Request parameter is not correct"}});
+	}
+
+	// get result from Promise
+	const result = await dbResponse.catch(error => {
+		return res.status(500).send({error: {server: error}});
+	});
+
+	res.send(result);
+});
+
 module.exports = router;
