@@ -4,7 +4,7 @@ process.env["NODE_CONFIG_DIR"] = __dirname + "/config/";
 const config = require('config');
 const bodyParser = require('body-parser');
 const mongo = require('./services/mongo.js');
-const corsHeaders = require('./services/corsHeaders.js');
+const corsHeaders = require('./middlewares/corsHeaders.js');
 
 const users = require('./routes/userRoutes');
 const emails = require('./routes/emailRoutes');
@@ -14,7 +14,6 @@ const auth = require('./routes/authRoutes.js');
 const express = require('express');
 const app = express();
 
-// app.use(addAccessControl);
 app.use(corsHeaders.addHeaders);
 app.use(bodyParser.json());
 app.use('/api/users', users);
