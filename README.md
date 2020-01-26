@@ -1,6 +1,9 @@
 # Daily Feat
 
-Web application, which helps people to achieve feats and build new habits 
+Web application, which helps people to achieve feats and build new habits. 
+This is solely back-end project. Use documentation below to run requests. 
+
+<img src="https://github.com/iasynetska/Dailyfeat/blob/master/src/img/mainPage.jpg" width="600">
 
 ## Getting Started
 
@@ -15,8 +18,6 @@ npm run start
 
 ## Technologies
 
-* HTML
-* CSS
 * JavaScript
 * [MongoDB](https://www.mongodb.com/)
 * [Mongoose](https://mongoosejs.com/)
